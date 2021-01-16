@@ -1,42 +1,41 @@
+const BASE_URL = "https://www.swapi.tech/api";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			people: [],
+			planets: [],
+			favorite: []
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+			setPeople: async () => {
+				let url = `${BASE_URL}/people`;
+				try {
+					const response = await fetch(url);
+					const apiPeople = await response.json();
+					setStore({
+						people: apiPeople.results
+					});
+				} catch (error) {
+					console.log(error);
+				}
 			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
-			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
+			setPlanets: async () => {
+				let url = `${BASE_URL}/planets`;
+				try {
+					const response = await fetch(url);
+					const apiPlanets = await response.json();
+					setStore({
+						planets: apiPlanets.results
+					});
+				} catch (error) {
+					console.log(error);
+				}
+			},
+			setFavorite: fav => {
+				setStore({
+					favorite: fav
 				});
-
-				//reset the global store
-				setStore({ demo: demo });
 			}
 		}
 	};

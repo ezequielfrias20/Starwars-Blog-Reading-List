@@ -1,15 +1,29 @@
-import React from "react";
-import rigoImage from "../../img/rigo-baby.jpg";
+import React, { useContext } from "react";
 import "../../styles/home.scss";
+import { CardPeople } from "../component/CardPeople";
+import { CardPlanets } from "../component/CardPlanets";
+import { Context } from "../store/appContext";
+export const Home = () => {
+	const { store, actions } = useContext(Context);
 
-export const Home = () => (
-	<div className="text-center mt-5">
-		<h1>Hello Rigo!</h1>
-		<p>
-			<img src={rigoImage} />
-		</p>
-		<a href="#" className="btn btn-success">
-			If you see this green button, bootstrap is working
-		</a>
-	</div>
-);
+	return (
+		<div className="fondo">
+			<div>
+				<h2 className="tittle-holder">{"Characters"}</h2>
+			</div>
+			<div className="card-holder">
+				{store.people.map(people => {
+					return <CardPeople key={people.uid} item={people} />;
+				})}
+			</div>
+			<div>
+				<h2 className="tittle-holder">{"Planets"}</h2>
+			</div>
+			<div className="card-holder">
+				{store.planets.map(planets => {
+					return <CardPlanets key={planets.uid} item={planets} />;
+				})}
+			</div>
+		</div>
+	);
+};
