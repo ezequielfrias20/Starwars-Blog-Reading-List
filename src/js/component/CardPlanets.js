@@ -1,8 +1,10 @@
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
+import { Context } from "../store/appContext";
 
 export const CardPlanets = ({ item }) => {
+	const { store, actions } = useContext(Context);
 	const [description, setDescription] = useState([]);
 	var history = useHistory();
 

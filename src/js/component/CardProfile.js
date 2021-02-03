@@ -25,7 +25,7 @@ export const CardProfile = ({ item, numItem }) => {
 	description2();
 
 	return (
-		<div className="card">
+		<div className="card1">
 			<div className="im" />
 			<div className="description">
 				<div className="desc2">
